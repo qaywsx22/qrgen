@@ -52,6 +52,7 @@ func CreateToolbar(win fyne.Window) fyne.CanvasObject {
 
 	icon, err = fyne.LoadResourceFromPath("assets/arrow_repeat.png")
 	act = widget.NewToolbarAction(icon, func() {
+		Generate()
 	})
 	tb.Append(act)
 

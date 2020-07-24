@@ -20,6 +20,10 @@ func showSMSPanel() {
 	ShowDataTypeForm(DTSMS)
 }
 
+func Init() {
+	ShowDataTypeForm(DTURL)
+}
+
 func NavigatorPanel() fyne.CanvasObject {
 	// btnColor := widget.NewButton(AdjustColorsString, adjustColors)
 	// btnDesign := widget.NewButton(AdjustDesignString, adjustDesign)

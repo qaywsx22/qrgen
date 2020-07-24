@@ -28,5 +28,8 @@ func main() {
 	w.SetContent(contentPane)
 	wSize := fyne.NewSize(panels.MainWindowWidth, panels.MainWindowHeight)
 	w.Resize(wSize)
+
+	panels.Init()
+
 	w.ShowAndRun()
 }

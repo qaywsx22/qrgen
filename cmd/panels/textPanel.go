@@ -1,13 +1,26 @@
 package panels
 
 import (
-	"fyne.io/fyne"
 	"fyne.io/fyne/widget"
 )
 
-func TextPanel() fyne.CanvasObject {
-	f := widget.NewForm()
-	f.Append(TextLabelString, widget.NewMultiLineEntry())
+type TextPanel struct {
+	widget.Form
+	entry *widget.Entry
+}
 
-	return f
+func NewTextPanel() *TextPanel {
+	e := widget.NewMultiLineEntry()
+	e.SetPlaceHolder("Enter your text here\ncan be multiline")
+
+	tp := &TextPanel{}
+	tp.ExtendBaseWidget(tp)
+	tp.Append(TextLabelString, e)
+	tp.entry = e
+
+	return tp
+}
+
+func (tp *TextPanel) GetData() string {
+	return tp.entry.Text
 }

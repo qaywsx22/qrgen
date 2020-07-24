@@ -4,7 +4,12 @@ import (
 	"fyne.io/fyne"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
+	"github.com/qaywsx22/qr/cmd/logic"
 )
+
+type DataProvider interface {
+	GetData() string
+}
 
 var (
 	urlPanel     fyne.CanvasObject
@@ -17,13 +22,13 @@ var (
 )
 
 func DataPanel() fyne.CanvasObject {
-	urlPanel = URLPanel()
+	urlPanel = NewURLPanel()
 	urlIcon, _ = fyne.LoadResourceFromPath("assets/url_1.png")
 
-	textPanel = TextPanel()
+	textPanel = NewTextPanel()
 	textIcon, _ = fyne.LoadResourceFromPath("assets/text_2.png")
 
-	smsPanel = SMSPanel()
+	smsPanel = NewSMSPanel()
 	smsIcon, _ = fyne.LoadResourceFromPath("assets/message_three_points.png")
 
 	dataTypeIcon = widget.NewIcon(urlIcon)
@@ -35,6 +40,7 @@ func DataPanel() fyne.CanvasObject {
 	dataPane.Append(smsPanel)
 
 	dp := widget.NewVBox(dataTypeIconPanel, dataPane)
+	hideAll()
 
 	return dp
 }
@@ -58,4 +64,16 @@ func ShowDataTypeForm(dtype int) {
 		smsPanel.Show()
 		dataTypeIcon.SetResource(smsIcon)
 	}
+}
+
+func Generate() {
+	var s string = "Not initialized"
+	if urlPanel.Visible() {
+		s = urlPanel.(DataProvider).GetData()
+	} else if textPanel.Visible() {
+		s = textPanel.(DataProvider).GetData()
+	} else if smsPanel.Visible() {
+		s = smsPanel.(DataProvider).GetData()
+	}
+	logic.GenerateQRCode(s)
 }

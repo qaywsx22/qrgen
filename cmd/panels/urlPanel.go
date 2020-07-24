@@ -1,13 +1,27 @@
 package panels
 
 import (
-	"fyne.io/fyne"
 	"fyne.io/fyne/widget"
 )
 
-func URLPanel() fyne.CanvasObject {
-	f := widget.NewForm()
-	f.Append(UrlLabelString, widget.NewEntry())
+type URLPanel struct {
+	widget.Form
+	entry *widget.Entry
+}
 
-	return f
+func NewURLPanel() *URLPanel {
+	up := &URLPanel{}
+	up.ExtendBaseWidget(up)
+
+	e := widget.NewEntry()
+	up.Append(UrlLabelString, e)
+	e.SetPlaceHolder("https://google.com")
+
+	up.entry = e
+
+	return up
+}
+
+func (up *URLPanel) GetData() string {
+	return up.entry.Text
 }
