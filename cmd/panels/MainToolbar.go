@@ -2,6 +2,7 @@ package panels
 
 import (
 	"fmt"
+	"syscall"
 
 	"fyne.io/fyne"
 	"fyne.io/fyne/dialog"
@@ -60,6 +61,9 @@ func CreateToolbar(win fyne.Window) fyne.CanvasObject {
 
 	icon, err = fyne.LoadResourceFromPath("assets/settings_1.png")
 	act = widget.NewToolbarAction(icon, func() {
+		user32 := syscall.NewLazyDLL("user32.dll")
+		kbName := user32.NewProc("GetKeyboardLayoutNameA")
+		fmt.Println(kbName)
 	})
 	tb.Append(act)
 

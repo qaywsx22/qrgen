@@ -2,6 +2,7 @@ package panels
 
 import (
 	"fyne.io/fyne"
+	"fyne.io/fyne/canvas"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	"github.com/qaywsx22/qr/cmd/logic"
@@ -75,5 +76,10 @@ func Generate() {
 	} else if smsPanel.Visible() {
 		s = smsPanel.(DataProvider).GetData()
 	}
-	logic.GenerateQRCode(s)
+	img := logic.GenerateQRCode(s)
+
+	if img != nil {
+		cImg := canvas.NewImageFromImage(img)
+		ShowImage(cImg)
+	}
 }

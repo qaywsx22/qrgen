@@ -21,6 +21,11 @@ func NewTextPanel() *TextPanel {
 	return tp
 }
 
+// const (
+// 	testString = "one two три четыре fünf sechs"
+// )
+
 func (tp *TextPanel) GetData() string {
 	return tp.entry.Text
+	// return testString
 }

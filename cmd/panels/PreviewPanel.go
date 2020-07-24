@@ -6,6 +6,8 @@ import (
 	"fyne.io/fyne/layout"
 )
 
+var qrIcon *fyne.Container
+
 type iconForQRImage struct {
 }
 
@@ -26,8 +28,13 @@ func PreviewPanel() fyne.CanvasObject {
 	qrImg := canvas.NewImageFromFile(QrIconString)
 	qrImg.FillMode = canvas.ImageFillStretch
 
-	qrIcon := fyne.NewContainerWithLayout(&iconForQRImage{}, qrImg)
+	qrIcon = fyne.NewContainerWithLayout(&iconForQRImage{}, qrImg)
 	qrPane := fyne.NewContainerWithLayout(layout.NewCenterLayout(), qrIcon)
 
 	return qrPane
+}
+
+func ShowImage(img *canvas.Image) {
+	qrIcon.Objects[0] = img
+	qrIcon.Refresh()
 }
